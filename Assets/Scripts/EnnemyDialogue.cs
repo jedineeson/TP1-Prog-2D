@@ -52,7 +52,7 @@ public class EnnemyDialogue : MonoBehaviour
         m_PlayerDialogueBox.SetActive(false);
 
 
-        m_EnnemyTalk.text = "";
+        m_EnnemyTalk.SetText("");
         
         
         //m_EnnemySentences.Add("T'es sorti d'une lampe, c'est clair... mais t'est quand même pas une lumière!");      
@@ -128,6 +128,7 @@ public class EnnemyDialogue : MonoBehaviour
         {
             playerTalk = m_ButtonsGroup[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
             playerTalk.SetText(m_PlayerAnswersGroupOfGroup[m_Random].m_PlayerAnswersGroup[i]);
+            Debug.Log(playerTalk);
         }
       
     }
