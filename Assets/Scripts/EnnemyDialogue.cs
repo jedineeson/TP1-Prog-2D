@@ -9,10 +9,12 @@ using System;
 public class PlayerAnswersGroup
 {
     public string[] m_PlayerAnswersGroup = new string[3];
+    public int m_GoodAnswer = 0;
 }
 
 public class EnnemyDialogue : MonoBehaviour
 {
+    public int m_GoodAnswersQuantity;
     public int m_QuestionQuantity;
     public float m_EnnemyTextSpeed;
     public string[] m_EnnemySentences = new string[0];
@@ -104,7 +106,7 @@ public class EnnemyDialogue : MonoBehaviour
 
     private void RandomEnnemySentence()
     {        
-        m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity+1);
+        m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
         StartCoroutine(ShowSentences());
     }
 
@@ -113,7 +115,8 @@ public class EnnemyDialogue : MonoBehaviour
         m_EnnemyDialogueBox.SetActive(true);
         m_EnnemyTalk.gameObject.SetActive(true);
         int textSize = 0;
-
+        Debug.Log(m_Random);
+        Debug.Log(m_EnnemySentences.Length);
         while (textSize < m_EnnemySentences[m_Random].ToString().Length)
         {
             m_EnnemyTalk.text += m_EnnemySentences[m_Random].ToString()[textSize++];
@@ -122,15 +125,42 @@ public class EnnemyDialogue : MonoBehaviour
 
         m_PlayerDialogueBox.SetActive(true);
 
-               
+        m_ButtonsGroup[0].gameObject.SetActive(true);
+        m_ButtonsGroup[1].gameObject.SetActive(true);
+        m_ButtonsGroup[2].gameObject.SetActive(true);
+        
         TextMeshProUGUI playerTalk;
+        
         for (int i = 0; i < m_ButtonsGroup.Length; i++)
         {
             playerTalk = m_ButtonsGroup[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
             playerTalk.SetText(m_PlayerAnswersGroupOfGroup[m_Random].m_PlayerAnswersGroup[i]);
-            Debug.Log(playerTalk);
+            Debug.Log(playerTalk.text);
         }
       
+    }
+
+    public void ValidateAnswers(int answers)
+    {
+        if(answers == m_PlayerAnswersGroupOfGroup[m_Random].m_GoodAnswer)
+        {
+            m_GoodAnswersQuantity += 1;
+        }
+        else
+        {
+            m_GoodAnswersQuantity = 0;
+        }
+
+        Debug.Log(m_GoodAnswersQuantity);
+        //switch (m_Random)
+        //{
+        //    case 0 : 
+        //    case 1 :
+        //    case 2 :
+        //    case 3 :
+        //    case 4 :
+        //    default:
+        //}    
     }
 
 }
