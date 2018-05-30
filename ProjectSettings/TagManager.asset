@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - EnemyDialogueBox
+  - PlayerDialogueBox
   layers:
   - Default
   - TransparentFX
@@ -55,4 +57,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4073609857
+    locked: 0
+  - name: DialogueBox
+    uniqueID: 2692794053
     locked: 0
