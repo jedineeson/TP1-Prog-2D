@@ -5,43 +5,77 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
+//m_EnnemySentences.Add("T'es sorti d'une lampe, c'est clair... mais t'est quand même pas une lumière!");      
+//m_EnnemySentences.Add("Qu'est-ce qui est plus stupide qu'un sans-génie? 100 génies!");        
+//m_EnnemySentences.Add("Tu peux réaliser mon voeux? Et bien fou le camp morveux!");  
+//m_EnnemySentences.Add("Aujourd'hui, le génie meurt à la fin! Fait tes adieux à Aladin!");
+//m_EnnemySentences.Add("Je suis un phénix majestueux, c'est moi la vedette du jeu!");
+
+//0 Player for 0 ennemy
+//m_PlayerSentencesGroup0.Add("- C'est vrai qu'tu brille de mille-feux, mais t'a mis l'feu à ton millieu!");
+//m_PlayerSentencesGroup0.Add("- Quand tu repassera à Poudlard, dit bonsoir à Dumbledore!");
+//m_PlayerSentencesGroup0.Add("- Je vais réussir à de descendre et répartir tes cendres!");
+
 [System.Serializable]
 public class PlayerAnswersGroup
 {
+    //les 3 réponses du joueurs correspodant aux 3 boutons
+    //(Il serait intéressant de pouvoir rendre le chiffre disponible au designer)
     public string[] m_PlayerAnswersGroup = new string[3];
-    public int m_GoodAnswer = 0;
+    //la bonne réponse (0-3)
+    //(Il serait intéressant de pouvoir rendre le chiffre disponible au designer)
+    public int m_RightAnswer = 0;
 }
 
 public class EnnemyDialogue : MonoBehaviour
 {
-    public int m_GoodAnswersQuantity;
+
+    public Animator m_GenieAnimator;
+    public Animator m_BirdAnimator;
+
+    private bool m_CanPlay = true;
+
+    private bool[] m_AnsweredQuestion = new bool[0];
+
+    //nombre de bonne réponse du joueur
+    public int m_Score;
+    //nombre de question que le designer veux
     public int m_QuestionQuantity;
+    //vitesse de défilement du texte de l'ennemie
     public float m_EnnemyTextSpeed;
+    //liste des dialogues de l'ennemie que le designer veux 
     public string[] m_EnnemySentences = new string[0];
+    //Text mesh de l'ennemi
     public TextMeshProUGUI m_EnnemyTalk;
-    
+    //les 3 boutons interactifs sur lesquels les choix de dialogues du joueur sont affichés
+    //(Il serait intéressant de pouvoir rendre le chiffre disponible au designer)
     public Button[] m_ButtonsGroup = new Button[3];
-    
+    //Boîte de dialogue de l'ennemie (sprite)
     public GameObject m_EnnemyDialogueBox;
+    //Boîte de dialogue du joueur (sprite)
     public GameObject m_PlayerDialogueBox;
+    //Liste des groupes de 3 réponses du joueurs 
     public PlayerAnswersGroup[] m_PlayerAnswersGroupOfGroup = new PlayerAnswersGroup[0];
-    
+    //nombre de réponse possible pour le joueur
+    //(Il serait intéressant de pouvoir rendre le chiffre disponible au designer)
     private const int ANSWERS_QUANTITY = 3;
+    //int random qui détermine le dialogue de l'ennemi à afficher
     private int m_Random;
 
     //loop playeranswersgroup 
     public void OnValidate()
-    {   
+    {
         Array.Resize(ref m_PlayerAnswersGroupOfGroup, m_QuestionQuantity);
         Array.Resize(ref m_EnnemySentences, m_QuestionQuantity);
+        Array.Resize(ref m_AnsweredQuestion, m_QuestionQuantity);
         Array.Resize(ref m_ButtonsGroup, ANSWERS_QUANTITY);
 
         for (int i = 0; i < m_PlayerAnswersGroupOfGroup.Length; i++)
         {
             Array.Resize(ref m_PlayerAnswersGroupOfGroup[i].m_PlayerAnswersGroup, ANSWERS_QUANTITY);//m_PlayerAnswers
         }
-        
-        Debug.LogWarning("Cannot resize this array");       
+
+        Debug.LogWarning("Cannot resize this array");
     }
 
     private void Start()
@@ -55,58 +89,34 @@ public class EnnemyDialogue : MonoBehaviour
 
 
         m_EnnemyTalk.SetText("");
-        
-        
-        //m_EnnemySentences.Add("T'es sorti d'une lampe, c'est clair... mais t'est quand même pas une lumière!");      
-        //m_EnnemySentences.Add("Qu'est-ce qui est plus stupide qu'un sans-génie? 100 génies!");        
-        //m_EnnemySentences.Add("Tu peux réaliser mon voeux? Et bien fou le camp morveux!");  
-        //m_EnnemySentences.Add("Aujourd'hui, le génie meurt à la fin! Fait tes adieux à Aladin!");
-        //m_EnnemySentences.Add("Je suis un phénix majestueux, c'est moi la vedette du jeu!");
-
-        //0 Player for 0 ennemy
-        //m_PlayerSentencesGroup0.Add("- C'est vrai qu'tu brille de mille-feux, mais t'a mis l'feu à ton millieu!");
-        //m_PlayerSentencesGroup0.Add("- Quand tu repassera à Poudlard, dit bonsoir à Dumbledore!");
-        //m_PlayerSentencesGroup0.Add("- Je vais réussir à de descendre et répartir tes cendres!");
-        
-        //1 Player for 0 ennemy
-        //m_PlayerSentencesGroup1.Add("- AAAAAAAA AAAAAAAAAAAAAAA AAAAAAAAAA AAAA AAAAAAAAA AAAAA AAAAA AAA");
-        //m_PlayerSentencesGroup1.Add("- AAAAAAAA AAAAAAAAAA AAAAAAAA AAAAAAAA AAAAAAAAA AAAAAA AAAAAAAAA");
-        //m_PlayerSentencesGroup1.Add("- 1111 1111 111111111 1111 111111111 11111 1111111111 11111111");
-        
-        //2 Player for 0 ennemy
-        //m_PlayerSentencesGroup2.Add("- BBBBBBB BBBBBBB BBBBBBBB BBBBBBBBB BBBBBBB BBBBBBBBB BBBBB BBBBB");
-        //m_PlayerSentencesGroup2.Add("- BBBBBBB BBB BBBBBBBBB BBBBBBBBB BBBBBBBBB BBBBBBBBB BBBBBBB BBB");
-        //m_PlayerSentencesGroup2.Add("- 2222 22222222 22222222 2222222 22222222 222222 222222");
-
-        //m_PlayerSentencesGroup3.Add("- CCCCC CCCCCCCC CCCCCC CCCCCCCCCCC CCCCCCC CCCC CCCCC");
-        //m_PlayerSentencesGroup3.Add("- CCCC CCCCC CCCCCCC CCCCCC CCCCCCCC CCCCCCC CCCCC CCCC CCCCC");
-        //m_PlayerSentencesGroup3.Add("- 33333 333333 33333333333 3333333 333333333 3333333 3333333");
-
-        //m_PlayerSentencesGroup4.Add("- DDDDDDDDD D DDDDDDDDD DDDDDDDDDD DDDDDDDDDDDDD DDD DDDDDD");
-        //m_PlayerSentencesGroup4.Add("- DDDD DDDDDDD DDDDDDD DDDDDDDD DDDDD DDDDDDDDD DDDDDD DDDD");
-        //m_PlayerSentencesGroup4.Add("- 444444 444444 44444444 44444444 44444444 44444 444444 4444");
-
-        //m_PlayerSentencesGroup.Add(m_PlayerSentencesGroup0);
-        //m_PlayerSentencesGroup.Add(m_PlayerSentencesGroup1);
-        //m_PlayerSentencesGroup.Add(m_PlayerSentencesGroup2);
-        //m_PlayerSentencesGroup.Add(m_PlayerSentencesGroup3);
-        //m_PlayerSentencesGroup.Add(m_PlayerSentencesGroup4);
     }
 
     private void Update()
-    {     
-        if (Input.GetKeyDown(KeyCode.Space))
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && m_CanPlay)
         {
             m_EnnemyTalk.text = "";
+
+            m_CanPlay = false;
 
             RandomEnnemySentence();
 
         }
+
+        if (m_Score == 5)
+        {
+            StartCoroutine(Victory());
+        }
     }
 
     private void RandomEnnemySentence()
-    {        
-        m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
+    {
+        //m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
+
+        while (m_AnsweredQuestion[m_Random] != false)
+        {
+            m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
+        }
         StartCoroutine(ShowSentences());
     }
 
@@ -115,8 +125,7 @@ public class EnnemyDialogue : MonoBehaviour
         m_EnnemyDialogueBox.SetActive(true);
         m_EnnemyTalk.gameObject.SetActive(true);
         int textSize = 0;
-        Debug.Log(m_Random);
-        Debug.Log(m_EnnemySentences.Length);
+        //Debug.Log(m_EnnemySentences.Length);
         while (textSize < m_EnnemySentences[m_Random].ToString().Length)
         {
             m_EnnemyTalk.text += m_EnnemySentences[m_Random].ToString()[textSize++];
@@ -128,30 +137,56 @@ public class EnnemyDialogue : MonoBehaviour
         m_ButtonsGroup[0].gameObject.SetActive(true);
         m_ButtonsGroup[1].gameObject.SetActive(true);
         m_ButtonsGroup[2].gameObject.SetActive(true);
-        
+
         TextMeshProUGUI playerTalk;
-        
+
         for (int i = 0; i < m_ButtonsGroup.Length; i++)
         {
             playerTalk = m_ButtonsGroup[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
             playerTalk.SetText(m_PlayerAnswersGroupOfGroup[m_Random].m_PlayerAnswersGroup[i]);
-            Debug.Log(playerTalk.text);
+            //Debug.Log(playerTalk.text);
         }
-      
+
     }
 
     public void ValidateAnswers(int answers)
     {
-        if(answers == m_PlayerAnswersGroupOfGroup[m_Random].m_GoodAnswer)
+        Debug.Log("votre réponse : " + answers);
+        Debug.Log("La bonne réponse : " + m_PlayerAnswersGroupOfGroup[m_Random].m_RightAnswer);
+
+        if (answers == m_PlayerAnswersGroupOfGroup[m_Random].m_RightAnswer)
         {
-            m_GoodAnswersQuantity += 1;
+            m_Score += 1;
+            m_AnsweredQuestion[m_Random] = true;
+
+            m_GenieAnimator.SetTrigger("GenieAttack");
+            m_BirdAnimator.SetTrigger("BirdGetHit");
+
         }
         else
         {
-            m_GoodAnswersQuantity = 0;
+            for (int i = 0; i < m_QuestionQuantity; i++)
+            {
+                m_AnsweredQuestion[i] = false;
+            }
+            m_Score = 0;
+
+            m_BirdAnimator.SetTrigger("BirdAttack");
+            m_GenieAnimator.SetTrigger("GenieGetHit");
         }
 
-        Debug.Log(m_GoodAnswersQuantity);
+        Debug.Log("votre score est : " + m_Score);
+
+        m_EnnemyTalk.gameObject.SetActive(false);
+        m_ButtonsGroup[0].gameObject.SetActive(false);
+        m_ButtonsGroup[1].gameObject.SetActive(false);
+        m_ButtonsGroup[2].gameObject.SetActive(false);
+        m_EnnemyDialogueBox.SetActive(false);
+        m_PlayerDialogueBox.SetActive(false);
+
+        m_CanPlay = true;
+
+
         //switch (m_Random)
         //{
         //    case 0 : 
@@ -161,6 +196,12 @@ public class EnnemyDialogue : MonoBehaviour
         //    case 4 :
         //    default:
         //}    
+    }
+
+    private IEnumerator Victory()
+    {
+        yield return new WaitForSeconds(3);
+        Debug.Log("Victoire");
     }
 
 }

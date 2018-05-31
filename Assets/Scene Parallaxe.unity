@@ -691,7 +691,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720750580
 GameObject:
@@ -791,7 +791,7 @@ RectTransform:
   - {fileID: 1707251937}
   - {fileID: 21486138}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1030,7 +1030,7 @@ Transform:
   m_LocalScale: {x: 5.849989, y: 1.9249996, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &985162977
 GameObject:
@@ -1725,7 +1725,7 @@ Transform:
   m_LocalScale: {x: 4, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1606564767
 GameObject:
@@ -1798,7 +1798,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1606564770}
   m_OnClick:
     m_PersistentCalls:
@@ -2263,48 +2263,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1707251936}
---- !u!1 &1786645412
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1786645413}
-  - component: {fileID: 1786645414}
-  m_Layer: 0
-  m_Name: Animation Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1786645413
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1786645412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1786645414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1786645412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc4a516657421f40b2d9357d3400f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GenieAnimator: {fileID: 807675560}
-  m_BirdAnimator: {fileID: 84250316}
 --- !u!1 &1864509453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2332,10 +2290,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef800060e939dd40b8f4504eb7ddc61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_QuestionQuantity: 1
+  m_GenieAnimator: {fileID: 807675560}
+  m_BirdAnimator: {fileID: 84250316}
+  m_Score: 0
+  m_QuestionQuantity: 5
   m_EnnemyTextSpeed: 0.1
   m_EnnemySentences:
   - "T'es sorti d'une lampe, c'est clair... mais t'est quand m\xEAme pas une lumi\xE8re!"
+  - "Qu'est-ce qui est plus stupide qu'un sans-g\xE9nie? 100 g\xE9nies!"
+  - "Tu peux r\xE9aliser mon voeux? Et bien fou le camp morveux!"
+  - "Aujourd'hui, le g\xE9nie meurt \xE0 la fin! Fait tes adieux \xE0 Aladin!"
+  - "Je suis un ph\xE9nix majestueux, c'est moi la vedette du jeu!"
   m_EnnemyTalk: {fileID: 316280996}
   m_ButtonsGroup:
   - {fileID: 1606564769}
@@ -2345,9 +2310,31 @@ MonoBehaviour:
   m_PlayerDialogueBox: {fileID: 926947170}
   m_PlayerAnswersGroupOfGroup:
   - m_PlayerAnswersGroup:
-    - aaaaa
-    - ssssssss
-    - ddddddd
+    - "- C'est vrai qu'tu brille de mille-feux, mais t'a mis l'feu \xE0 ton millieu!"
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO'
+    m_RightAnswer: 0
+  - m_PlayerAnswersGroup:
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - '- TO DO joaquin phoenix TO DO'
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    m_RightAnswer: 1
+  - m_PlayerAnswersGroup:
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - "- Je vais r\xE9ussir \xE0 de descendre et r\xE9partir tes cendres!"
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    m_RightAnswer: 1
+  - m_PlayerAnswersGroup:
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - "- Quand tu repassera \xE0 Poudlard, dit bonsoir \xE0 Dumbledore!"
+    m_RightAnswer: 2
+  - m_PlayerAnswersGroup:
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - "C'est pourtant pas toi que le joueur contr\xF4le! Et j'ai trop la classe ,
+      vedette  du jeu \xE7a... c'est mon r\xF4le!"
+    m_RightAnswer: 2
 --- !u!4 &1864509455
 Transform:
   m_ObjectHideFlags: 0
@@ -2359,7 +2346,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1892939572
 GameObject:
