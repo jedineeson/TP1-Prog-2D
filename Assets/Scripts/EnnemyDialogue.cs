@@ -32,6 +32,7 @@ public class EnnemyDialogue : MonoBehaviour
     public AudioSource m_BeepTalk;
     public AudioSource m_GenieAttack;
     public AudioSource m_PhenixAttack;
+    public AudioSource m_Music;
     public Animator m_GenieAnimator;
     public Animator m_BirdAnimator;
 
@@ -164,6 +165,9 @@ public class EnnemyDialogue : MonoBehaviour
     public void StartToPlay()
     {
         m_IsPlay = true;
+        m_GenieAnimator.SetTrigger("GenieAnimate");
+        m_BirdAnimator.SetTrigger("BirdAnimate");
+        m_Music.Play();
         m_StartButton.gameObject.SetActive(false);
         StartCoroutine(LetsPlay());
     }
