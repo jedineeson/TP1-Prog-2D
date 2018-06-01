@@ -1,120 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+[System.Serializable]
+public class LayerGroup
+{
+    public GameObject[] m_Backgrounds = new GameObject[2];
+    [HideInInspector]
+    public GameObject m_PreviousBackground;
+    public float m_LayerSpeed = 5f;
+}
 
 public class Scrolling : MonoBehaviour
 {
-    private float m_ScaleX = 19.2f;
+    public int m_NumberOfLayer = 4;
+    public LayerGroup[] m_LayerGroup = new LayerGroup[0];
+    //private float m_ScaleX = 19.2f;
+    public Vector2 m_ScrollingDir = new Vector2();
+    private float m_ScreenWidth;
+    public GameObject GameManager;
 
-    public GameObject m_Plan41;
-    public GameObject m_Plan42;
-    
-    public GameObject m_Plan31;
-    public GameObject m_Plan32;
-
-    public GameObject m_Plan21;
-    public GameObject m_Plan22;
-
-    public GameObject m_Plan11;
-    public GameObject m_Plan12;
-    
-    private Vector2 m_Plan4Scale = new Vector2();
-    private Vector2 m_Plan3Scale = new Vector2();
-    private Vector2 m_Plan2Scale = new Vector2();
-    private Vector2 m_Plan1Scale = new Vector2();
-
-    private Vector2 m_ScrollingDir41 = new Vector2();
-    private Vector2 m_ScrollingDir42 = new Vector2();
-
-    private Vector2 m_ScrollingDir31 = new Vector2();
-    private Vector2 m_ScrollingDir32 = new Vector2();
-
-    private Vector2 m_ScrollingDir21 = new Vector2();
-    private Vector2 m_ScrollingDir22 = new Vector2();
-
-    private Vector2 m_ScrollingDir11 = new Vector2();
-    private Vector2 m_ScrollingDir12 = new Vector2();
-
-    public float m_Plan4ScrollingSpeed = 5f;
-    public float m_Plan3ScrollingSpeed = 5f;
-    public float m_Plan2ScrollingSpeed = 5f;
-    public float m_Plan1ScrollingSpeed = 5f;
-
-    void Start ()
+    public void OnValidate()
     {
-        m_ScrollingDir41 = m_Plan41.transform.position;
-        m_ScrollingDir42 = m_Plan42.transform.position;
+        Array.Resize(ref m_LayerGroup, m_NumberOfLayer);
 
-        m_ScrollingDir31 = m_Plan31.transform.position;
-        m_ScrollingDir32 = m_Plan32.transform.position;
+        for (int i = 0; i < m_LayerGroup.Length; i++)
+        {
+            Array.Resize(ref m_LayerGroup[i].m_Backgrounds, 2);//m_PlayerAnswers
 
-        m_ScrollingDir21 = m_Plan21.transform.position;
-        m_ScrollingDir22 = m_Plan22.transform.position;
+        }
 
-        m_ScrollingDir11 = m_Plan11.transform.position;
-        m_ScrollingDir12 = m_Plan12.transform.position;
+        //Debug.LogWarning("Cannot resize this array");
     }
-	
-	void Update ()
+
+    private void Start()
     {
-        m_ScrollingDir41.x -= m_Plan4ScrollingSpeed * Time.deltaTime;
-        m_ScrollingDir42.x -= m_Plan4ScrollingSpeed * Time.deltaTime;
+        m_ScreenWidth = -Screen.width / 100f;
+
+        for (int i = 0; i < m_LayerGroup.Length; i++)
+        {
+                m_LayerGroup[i].m_PreviousBackground = m_LayerGroup[i].m_Backgrounds[m_LayerGroup[i].m_Backgrounds.Length-1];
+        }
+    }
+
+    private void Update()
+    {
+        if(GameManager.GetComponent<EnnemyDialogue>().m_IsPlay == true)
+        {
+            for (int i = 0; i < m_LayerGroup.Length; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    m_LayerGroup[i].m_Backgrounds[j].transform.Translate(-m_LayerGroup[i].m_LayerSpeed * Time.deltaTime, 0f, 0f);
+            
+                    if (m_LayerGroup[i].m_Backgrounds[j].transform.position.x < m_ScreenWidth)
+                    {
+                        //Içi on assigne une nouvelle position en x en backgrounds ayant dépasser la limite.
+                        m_ScrollingDir.x = m_LayerGroup[i].m_PreviousBackground.transform.position.x - m_ScreenWidth;
+                        m_LayerGroup[i].m_Backgrounds[j].transform.position = m_ScrollingDir;
+                        m_LayerGroup[i].m_Backgrounds[j].transform.position = new Vector3(m_LayerGroup[i].m_Backgrounds[j].transform.position.x - m_LayerGroup[i].m_LayerSpeed * Time.deltaTime, 0f);
+                    }
+            
+                    m_LayerGroup[i].m_PreviousBackground = m_LayerGroup[i].m_Backgrounds[j];
+            
+                }
+
+            }
+        }
         
-        m_ScrollingDir31.x -= m_Plan3ScrollingSpeed * Time.deltaTime;
-        m_ScrollingDir32.x -= m_Plan3ScrollingSpeed * Time.deltaTime;
-    
-        m_ScrollingDir21.x -= m_Plan2ScrollingSpeed * Time.deltaTime;
-        m_ScrollingDir22.x -= m_Plan2ScrollingSpeed * Time.deltaTime;
-
-        m_ScrollingDir11.x -= m_Plan1ScrollingSpeed * Time.deltaTime;
-        m_ScrollingDir12.x -= m_Plan1ScrollingSpeed * Time.deltaTime;
-
-        m_Plan41.transform.position = m_ScrollingDir41;
-        m_Plan42.transform.position = m_ScrollingDir42;
-
-        m_Plan31.transform.position = m_ScrollingDir31;
-        m_Plan32.transform.position = m_ScrollingDir32;
-
-        m_Plan21.transform.position = m_ScrollingDir21;
-        m_Plan22.transform.position = m_ScrollingDir22;
-
-        m_Plan11.transform.position = m_ScrollingDir11;
-        m_Plan12.transform.position = m_ScrollingDir12;
-
-        if (m_ScrollingDir41.x <= -m_ScaleX)
-        {
-            m_ScrollingDir41.x = m_ScrollingDir42.x + m_ScaleX;
-        }
-        if (m_ScrollingDir42.x <= -m_ScaleX)
-        {
-            m_ScrollingDir42.x = m_ScrollingDir41.x + m_ScaleX;
-        }
-
-        if (m_ScrollingDir31.x <= -m_ScaleX)
-        {
-            m_ScrollingDir31.x = m_ScrollingDir32.x + m_ScaleX;
-        }
-        if (m_ScrollingDir32.x <= -m_ScaleX)
-        {
-            m_ScrollingDir32.x = m_ScrollingDir31.x + m_ScaleX;
-        }
-
-        if (m_ScrollingDir21.x <= -m_ScaleX)
-        {
-            m_ScrollingDir21.x = m_ScrollingDir22.x + m_ScaleX;
-        }
-        if (m_ScrollingDir22.x <= -m_ScaleX)
-        {
-            m_ScrollingDir22.x = m_ScrollingDir21.x + m_ScaleX;
-        }
-
-        if (m_ScrollingDir11.x <= -m_ScaleX)
-        {
-            m_ScrollingDir11.x = m_ScrollingDir12.x + m_ScaleX;
-        }
-        if (m_ScrollingDir12.x <= -m_ScaleX)
-        {
-            m_ScrollingDir12.x = m_ScrollingDir11.x + m_ScaleX;
-        }
     }
 }

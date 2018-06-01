@@ -29,20 +29,22 @@ public class PlayerAnswersGroup
 
 public class EnnemyDialogue : MonoBehaviour
 {
-
+    public AudioSource m_BeepTalk;
+    public AudioSource m_GenieAttack;
+    public AudioSource m_PhenixAttack;
     public Animator m_GenieAnimator;
     public Animator m_BirdAnimator;
-
-    private bool m_CanPlay = true;
 
     private bool[] m_AnsweredQuestion = new bool[0];
 
     //nombre de bonne réponse du joueur
-    public int m_Score;
+    private int m_Score;
     //nombre de question que le designer veux
     public int m_QuestionQuantity;
     //vitesse de défilement du texte de l'ennemie
-    public float m_EnnemyTextSpeed;
+    public float m_EnnemyTextSpeed = 0.1f;
+
+    private float m_ActualEnnemyTextSpeed;
     //liste des dialogues de l'ennemie que le designer veux 
     public string[] m_EnnemySentences = new string[0];
     //Text mesh de l'ennemi
@@ -51,6 +53,9 @@ public class EnnemyDialogue : MonoBehaviour
     //(Il serait intéressant de pouvoir rendre le chiffre disponible au designer)
     public Button[] m_ButtonsGroup = new Button[3];
     //Boîte de dialogue de l'ennemie (sprite)
+    
+    public Button m_StartButton;
+
     public GameObject m_EnnemyDialogueBox;
     //Boîte de dialogue du joueur (sprite)
     public GameObject m_PlayerDialogueBox;
@@ -61,6 +66,10 @@ public class EnnemyDialogue : MonoBehaviour
     private const int ANSWERS_QUANTITY = 3;
     //int random qui détermine le dialogue de l'ennemi à afficher
     private int m_Random;
+
+    private bool m_IsWriting;
+
+    public bool m_IsPlay;
 
     //loop playeranswersgroup 
     public void OnValidate()
@@ -75,7 +84,7 @@ public class EnnemyDialogue : MonoBehaviour
             Array.Resize(ref m_PlayerAnswersGroupOfGroup[i].m_PlayerAnswersGroup, ANSWERS_QUANTITY);//m_PlayerAnswers
         }
 
-        Debug.LogWarning("Cannot resize this array");
+        //Debug.LogWarning("Cannot resize this array");
     }
 
     private void Start()
@@ -93,25 +102,23 @@ public class EnnemyDialogue : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && m_CanPlay)
-        {
-            m_EnnemyTalk.text = "";
-
-            m_CanPlay = false;
-
-            RandomEnnemySentence();
-
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        { 
+            m_ActualEnnemyTextSpeed = 0f;
         }
+    }
 
-        if (m_Score == 5)
-        {
-            StartCoroutine(Victory());
-        }
+        private IEnumerator LetsPlay()
+    {
+        yield return new WaitForSeconds(3f);
+        m_ActualEnnemyTextSpeed = m_EnnemyTextSpeed;
+        m_EnnemyTalk.text = "";
+        RandomEnnemySentence();
     }
 
     private void RandomEnnemySentence()
     {
-        //m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
+        m_IsWriting = true;
 
         while (m_AnsweredQuestion[m_Random] != false)
         {
@@ -125,15 +132,21 @@ public class EnnemyDialogue : MonoBehaviour
         m_EnnemyDialogueBox.SetActive(true);
         m_EnnemyTalk.gameObject.SetActive(true);
         int textSize = 0;
-        //Debug.Log(m_EnnemySentences.Length);
+
         while (textSize < m_EnnemySentences[m_Random].ToString().Length)
         {
+            m_BeepTalk.Play();
             m_EnnemyTalk.text += m_EnnemySentences[m_Random].ToString()[textSize++];
-            yield return new WaitForSeconds(m_EnnemyTextSpeed);
+
+            if (m_ActualEnnemyTextSpeed > 0)
+            {
+                yield return new WaitForSeconds(m_ActualEnnemyTextSpeed);
+            }
         }
 
-        m_PlayerDialogueBox.SetActive(true);
+        yield return new WaitForSeconds(1f);
 
+        m_PlayerDialogueBox.SetActive(true);
         m_ButtonsGroup[0].gameObject.SetActive(true);
         m_ButtonsGroup[1].gameObject.SetActive(true);
         m_ButtonsGroup[2].gameObject.SetActive(true);
@@ -144,24 +157,29 @@ public class EnnemyDialogue : MonoBehaviour
         {
             playerTalk = m_ButtonsGroup[i].gameObject.GetComponentInChildren<TextMeshProUGUI>();
             playerTalk.SetText(m_PlayerAnswersGroupOfGroup[m_Random].m_PlayerAnswersGroup[i]);
-            //Debug.Log(playerTalk.text);
         }
 
     }
 
+    public void StartToPlay()
+    {
+        m_IsPlay = true;
+        m_StartButton.gameObject.SetActive(false);
+        StartCoroutine(LetsPlay());
+    }
+
     public void ValidateAnswers(int answers)
     {
-        Debug.Log("votre réponse : " + answers);
-        Debug.Log("La bonne réponse : " + m_PlayerAnswersGroupOfGroup[m_Random].m_RightAnswer);
 
         if (answers == m_PlayerAnswersGroupOfGroup[m_Random].m_RightAnswer)
         {
             m_Score += 1;
             m_AnsweredQuestion[m_Random] = true;
-
+            
             m_GenieAnimator.SetTrigger("GenieAttack");
             m_BirdAnimator.SetTrigger("BirdGetHit");
 
+            m_GenieAttack.Play();
         }
         else
         {
@@ -173,9 +191,9 @@ public class EnnemyDialogue : MonoBehaviour
 
             m_BirdAnimator.SetTrigger("BirdAttack");
             m_GenieAnimator.SetTrigger("GenieGetHit");
-        }
 
-        Debug.Log("votre score est : " + m_Score);
+            m_PhenixAttack.Play();
+        }
 
         m_EnnemyTalk.gameObject.SetActive(false);
         m_ButtonsGroup[0].gameObject.SetActive(false);
@@ -184,18 +202,11 @@ public class EnnemyDialogue : MonoBehaviour
         m_EnnemyDialogueBox.SetActive(false);
         m_PlayerDialogueBox.SetActive(false);
 
-        m_CanPlay = true;
-
-
-        //switch (m_Random)
-        //{
-        //    case 0 : 
-        //    case 1 :
-        //    case 2 :
-        //    case 3 :
-        //    case 4 :
-        //    default:
-        //}    
+        if(m_Score != 5)
+        {
+            StartCoroutine(LetsPlay());
+            
+        }
     }
 
     private IEnumerator Victory()
