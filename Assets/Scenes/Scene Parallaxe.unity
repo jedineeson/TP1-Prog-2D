@@ -3169,7 +3169,7 @@ MonoBehaviour:
       mais je te dis pas ph\xE9nix navidad."
     - "- Avec tes flammes dans le ciel on jurerais que tu sort des enfers,\n  De proche
       c'est diff\xE9rent, finalement t'est Moltres le Pokemon l\xE9gendaire."
-    m_RightAnswer: 0
+    m_RightAnswer: 2
   - m_PlayerAnswersGroup:
     - '!'
     - 
@@ -3181,14 +3181,16 @@ MonoBehaviour:
     - "- Je vais r\xE9ussir \xE0 te descendre \n  et puis r\xE9partir tes cendres!"
     - "- Tu sait pas te tenir en public Joaquin Phoenix. \n  T'est un one hit, un
       feu de paille : \"like a G6\" !"
-    m_RightAnswer: 1
-  - m_PlayerAnswersGroup:
-    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO '
-    - '- TODO TODO TODO TODO TODO TODO TODO TODO TODO '
-    - "- Quand tu repassera \xE0 Poudlard, \n  passe le bonsoir \xE0 Dumbledore!"
     m_RightAnswer: 2
   - m_PlayerAnswersGroup:
-    - "- Je suis tr\xE8s puissant comme le gaulois ast\xE9rix,\n  T'est impertinant
+    - "- Quand tu repassera \xE0 Poudlard, \n  passe le bonsoir \xE0 Dumbledore!"
+    - "- J'suis une machine, un g\xE9nie, et tout tes amis m'adorent\n  Je devine
+      toujours tout, je suis comme Akinator"
+    - "- On a une chose en commun... on existe pas!\n  Et puis le monde nous oubliera,
+      comme Ph\xE9nix le Chat!"
+    m_RightAnswer: 0
+  - m_PlayerAnswersGroup:
+    - "- Je suis tr\xE8s puissant comme le gaulois ast\xE9rix,\n  T'est impertinent
       comme le hockey \xE0 Phoenix"
     - "- C'est pourtant pas toi que le joueur contr\xF4le,\n  vedette du jeu c'est
       clairement mon r\xF4le."

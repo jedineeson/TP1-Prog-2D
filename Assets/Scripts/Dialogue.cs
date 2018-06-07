@@ -149,10 +149,11 @@ public class Dialogue : MonoBehaviour
     private void RandomEnnemySentence()
     {
         //Choisi une question au hasard parmis le array de dialogue de l'ennemie
-        while (m_AnsweredQuestion[m_Random] != false)
-        {
-            m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
-        }
+            do
+            {
+                m_Random = UnityEngine.Random.Range(0, m_QuestionQuantity);
+            }
+            while (m_AnsweredQuestion[m_Random] != false);
         StartCoroutine(ShowSentences());
     }
 
