@@ -6,6 +6,7 @@ using System;
 [System.Serializable]
 public class LayerGroup
 {
+    public int m_NumberOfImages = 2;
     public GameObject[] m_Backgrounds = new GameObject[2];
     [HideInInspector]
     public GameObject m_PreviousBackground;
@@ -14,54 +15,59 @@ public class LayerGroup
 
 public class Scrolling : MonoBehaviour
 {
-    public int m_NumberOfLayer = 4;
-    public LayerGroup[] m_LayerGroup = new LayerGroup[0];
-    //private float m_ScaleX = 19.2f;
-    public Vector2 m_ScrollingDir = new Vector2();
+    [SerializeField]
+    private int m_NumberOfLayer = 4;
+    [SerializeField]
+    private LayerGroup[] m_LayerGroup = new LayerGroup[0];
+    [SerializeField]
+    private GameObject GameManager;
+    private Vector2 m_ScrollingDir = new Vector2();
     private float m_ScreenWidth;
-    public GameObject GameManager;
+
 
     public void OnValidate()
     {
         Array.Resize(ref m_LayerGroup, m_NumberOfLayer);
-
         for (int i = 0; i < m_LayerGroup.Length; i++)
         {
-            Array.Resize(ref m_LayerGroup[i].m_Backgrounds, 2);//m_PlayerAnswers
-
+            Array.Resize(ref m_LayerGroup[i].m_Backgrounds, m_LayerGroup[i].m_NumberOfImages);
         }
-
-        //Debug.LogWarning("Cannot resize this array");
     }
 
     private void Start()
     {
+        //Largeur d'écran si on est en pixel perfect
         m_ScreenWidth = -Screen.width / 100f;
-
+        //Redéfini le previous background pour toujours replacer les backgrounds au bon endroit 
         for (int i = 0; i < m_LayerGroup.Length; i++)
         {
-                m_LayerGroup[i].m_PreviousBackground = m_LayerGroup[i].m_Backgrounds[m_LayerGroup[i].m_Backgrounds.Length-1];
+            m_LayerGroup[i].m_PreviousBackground = m_LayerGroup[i].m_Backgrounds[m_LayerGroup[i].m_Backgrounds.Length-1];
         }
     }
 
     private void Update()
-    {
-        if(GameManager.GetComponent<EnnemyDialogue>().m_IsPlay == true)
+    {   
+        //Fait l'effet parallax seulement si le jeu est en cours
+        if(GameManager.GetComponent<Dialogue>().m_IsPlay == true)
         {
             for (int i = 0; i < m_LayerGroup.Length; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
+                    //déplace les background
                     m_LayerGroup[i].m_Backgrounds[j].transform.Translate(-m_LayerGroup[i].m_LayerSpeed * Time.deltaTime, 0f, 0f);
-            
+                    //Si un background dépasse la limite
                     if (m_LayerGroup[i].m_Backgrounds[j].transform.position.x < m_ScreenWidth)
                     {
-                        //Içi on assigne une nouvelle position en x en backgrounds ayant dépasser la limite.
+                        //Place le vector(position du background) hors-limite à la position du previous background + la taille de l'écran
                         m_ScrollingDir.x = m_LayerGroup[i].m_PreviousBackground.transform.position.x - m_ScreenWidth;
+                        //Replace le background à la nouvelle posiiton du vecteur
                         m_LayerGroup[i].m_Backgrounds[j].transform.position = m_ScrollingDir;
-                        m_LayerGroup[i].m_Backgrounds[j].transform.position = new Vector3(m_LayerGroup[i].m_Backgrounds[j].transform.position.x - m_LayerGroup[i].m_LayerSpeed * Time.deltaTime, 0f);
+                        //déplace les background
+                        m_LayerGroup[i].m_Backgrounds[j].transform.Translate(-m_LayerGroup[i].m_LayerSpeed * Time.deltaTime, 0f, 0f);
+                        //m_LayerGroup[i].m_Backgrounds[j].transform.position = new Vector3(m_LayerGroup[i].m_Backgrounds[j].transform.position.x - m_LayerGroup[i].m_LayerSpeed * Time.deltaTime, 0f);
                     }
-            
+                    //redéfini le PreviousBackground
                     m_LayerGroup[i].m_PreviousBackground = m_LayerGroup[i].m_Backgrounds[j];
             
                 }
