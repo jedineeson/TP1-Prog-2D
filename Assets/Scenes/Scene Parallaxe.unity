@@ -540,33 +540,6 @@ Prefab:
       propertyPath: m_Name
       value: GenieTapisVolant_22
       objectReference: {fileID: 0}
-    - target: {fileID: 95957527981368498, guid: 1140d5fbad9a0f147bd57a76e3b3a239,
-        type: 2}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212777828934961648, guid: 1140d5fbad9a0f147bd57a76e3b3a239,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: -221357439
-      objectReference: {fileID: 0}
-    - target: {fileID: 212777828934961648, guid: 1140d5fbad9a0f147bd57a76e3b3a239,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4888623351567750, guid: 1140d5fbad9a0f147bd57a76e3b3a239, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4888623351567750, guid: 1140d5fbad9a0f147bd57a76e3b3a239, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4888623351567750, guid: 1140d5fbad9a0f147bd57a76e3b3a239, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1140d5fbad9a0f147bd57a76e3b3a239, type: 2}
   m_IsPrefabParent: 0
@@ -818,7 +791,7 @@ Transform:
   - {fileID: 377408301}
   - {fileID: 608674702}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &461761267
 GameObject:
@@ -848,7 +821,7 @@ Transform:
   - {fileID: 1612444415}
   - {fileID: 1777707065}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550910692
 GameObject:
@@ -1729,7 +1702,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1024033264
 GameObject:
@@ -1764,7 +1737,7 @@ Transform:
   - {fileID: 1441790017}
   - {fileID: 720750581}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129658577
 GameObject:
@@ -2290,28 +2263,6 @@ Prefab:
     - target: {fileID: 1552096494077870, guid: 86352254810c5c142a7ed6ed83e737c4, type: 2}
       propertyPath: m_Name
       value: OiseauQuiCracheDuFeu_23
-      objectReference: {fileID: 0}
-    - target: {fileID: 212504585045447750, guid: 86352254810c5c142a7ed6ed83e737c4,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: -221357439
-      objectReference: {fileID: 0}
-    - target: {fileID: 212504585045447750, guid: 86352254810c5c142a7ed6ed83e737c4,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4135202360503906, guid: 86352254810c5c142a7ed6ed83e737c4, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4135202360503906, guid: 86352254810c5c142a7ed6ed83e737c4, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4135202360503906, guid: 86352254810c5c142a7ed6ed83e737c4, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 86352254810c5c142a7ed6ed83e737c4, type: 2}
@@ -3156,46 +3107,49 @@ MonoBehaviour:
   m_QuestionQuantity: 5
   m_AnswersQuantity: 3
   m_EnnemySentences:
-  - "T'es sorti d'une lampe, c'est clair... mais t'est clairement pas une lumi\xE8re!"
-  - "Qu'est-ce qui est plus stupide qu'un sans-g\xE9nie? 100 g\xE9nies!"
-  - "Tu peux r\xE9aliser mon voeux? Et bien fou le camp morveux!"
+  - "Tu es sorti d'une lampe, c'est clair... mais t'est clairement pas une lumi\xE8re!"
+  - "Qu'est-ce qui est plus stupide qu'un sans g\xE9nie? 100 g\xE9nies!"
+  - "Tu peux r\xE9aliser mon voeu? Et bien fou le camp morveux!"
   - "Aujourd'hui, le g\xE9nie meurt \xE0 la fin! Fait tes adieux \xE0 Aladin!"
   - "Je suis un ph\xE9nix majestueux, c'est moi la vedette du jeu!"
   m_PlayerAnswersGroupOfGroup:
   - m_PlayerAnswersGroup:
     - "- C'est vrai que tu brilles de mille-feux, \n  mais t'a mis le feu \xE0 ton
       milieu!"
-    - "- On se conna\xEEt pas trop mais t'a rien d'amicale, \n  C'est les f\xEAtes
+    - "- On se conna\xEEt pas trop mais tu n'as rien d'amicale, \n  C'est les f\xEAtes
       mais je te dis pas ph\xE9nix navidad."
-    - "- Avec tes flammes dans le ciel on jurerais que tu sort des enfers,\n  De proche
-      c'est diff\xE9rent, finalement t'est Moltres le Pokemon l\xE9gendaire."
+    - "- Avec tes flammes dans le ciel on peut croire que tu sors des enfers,\n  De
+      proche c'est diff\xE9rent, finalement t'est Moltres le Pok\xE9mon l\xE9gendaire."
     m_RightAnswer: 2
   - m_PlayerAnswersGroup:
-    - '!'
-    - 
-    - 'DO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO '
+    - "- Je vais te montrer mon savoir faire question d\xE9fi dans les airs,\n  Je
+      te fais tomber de la stratosph\xE8re comme Ph\xE9nix Baumgartner!"
+    - "- Je suis un g\xE9nie c'est clair, et puis j'\xE9clipse tes vers,\n  Toi tu
+      voles autour de l'\xEEle... Comme Ph\xE9nix Leclerc!"
+    - "- On a une chose en commun... on n'existe pas!\n  Et puis le monde nous oubliera,
+      comme Ph\xE9nix le chat!"
     m_RightAnswer: 1
   - m_PlayerAnswersGroup:
-    - "- Jsuis un g\xE9nie c'est claire, et puis j'\xE9clipse tes vers,\n  Toi tu
-      vole autours de l'\xEEle... Comme Ph\xE9nix Leclerc"
+    - "- Je suis un g\xE9nie, comme Lynch ou Kojima...\n  Toi m\xEAme si t'est en
+      feu, tu me ph\xE9nix chaud ni froid!"
     - "- Je vais r\xE9ussir \xE0 te descendre \n  et puis r\xE9partir tes cendres!"
-    - "- Tu sait pas te tenir en public Joaquin Phoenix. \n  T'est un one hit, un
+    - "- Tu sais pas te tenir en public Joaquin Phoenix. \n  T'est un one hit, un
       feu de paille : \"like a G6\" !"
     m_RightAnswer: 2
   - m_PlayerAnswersGroup:
-    - "- Quand tu repassera \xE0 Poudlard, \n  passe le bonsoir \xE0 Dumbledore!"
-    - "- J'suis une machine, un g\xE9nie, et tout tes amis m'adorent\n  Je devine
-      toujours tout, je suis comme Akinator"
-    - "- On a une chose en commun... on existe pas!\n  Et puis le monde nous oubliera,
-      comme Ph\xE9nix le Chat!"
+    - "- Quand tu repasseras \xE0 Poudlard, \n  passe le bonsoir \xE0 Dumbledore!"
+    - "- Je suis une machine, un g\xE9nie, et tous tes amis m'adorent\n  Je devine
+      toujours tout, je suis comme Akinator!"
+    - "- Tu es jaloux de mon univers et de mes talents \xE0 la rime\n  T'est m\xE9chant
+      comme Jafar car je suis ami avec Jasmine!"
     m_RightAnswer: 0
   - m_PlayerAnswersGroup:
-    - "- Je suis tr\xE8s puissant comme le gaulois ast\xE9rix,\n  T'est impertinent
-      comme le hockey \xE0 Phoenix"
-    - "- C'est pourtant pas toi que le joueur contr\xF4le,\n  vedette du jeu c'est
-      clairement mon r\xF4le."
-    - "- J'suis venu i\xE7i pour prouver que les g\xE9nies ont du pouvoir\n  j'suis
-      pas venu me prendre en photo, comme Eug\xE9nie Bouchard"
+    - "- Je suis tr\xE8s puissant comme le Gaulois Ast\xE9rix,\n  T'est impertinent
+      comme le hockey \xE0 Phoenix!"
+    - "- Ce n'est pourtant pas toi que le joueur contr\xF4le,\n  vedette du jeu c'est
+      clairement mon r\xF4le!"
+    - "- Je suis venue ici pour prouver que les g\xE9nies ont du pouvoir\n  je ne
+      suis pas venu me prendre en photo, comme Eug\xE9nie Bouchard"
     m_RightAnswer: 0
   m_EnnemyTextSpeed: 0.1
   m_EnnemyTalk: {fileID: 316280996}
@@ -3219,7 +3173,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1892939572
 GameObject:

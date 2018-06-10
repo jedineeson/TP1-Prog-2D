@@ -5,19 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-//m_EnnemySentences.Add("T'es sorti d'une lampe, c'est clair... mais t'est quand même pas une lumière!");      
-//m_EnnemySentences.Add("Qu'est-ce qui est plus stupide qu'un sans-génie? 100 génies!");        
-//m_EnnemySentences.Add("Tu peux réaliser mon voeux? Et bien fou le camp morveux!");  
-//m_EnnemySentences.Add("Aujourd'hui, le génie meurt à la fin! Fait tes adieux à Aladin!");
-//m_EnnemySentences.Add("Je suis un phénix majestueux, c'est moi la vedette du jeu!");
-
-//0 Player for 0 ennemy
-//m_PlayerSentencesGroup0.Add("- C'est vrai qu'tu brille de mille-feux, mais t'a mis l'feu à ton millieu!");
-//m_PlayerSentencesGroup0.Add("- Quand tu repassera à Poudlard, dit bonsoir à Dumbledore!");
-//m_PlayerSentencesGroup0.Add("- Je vais réussir à de descendre et répartir tes cendres!");
-//C'est pourtant moi que le joueur contrôlle, vedette du jeu c'est mon rôle!
-//
-
 [System.Serializable]
 public class PlayerAnswersGroup
 {
